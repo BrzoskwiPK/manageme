@@ -1,68 +1,56 @@
-import { useEffect, useMemo, useState } from 'react'
 import { Project } from '../types/types'
-import { LocalStorageRepository } from '../backend/ApiClient'
-import { useNavigate } from 'react-router-dom'
-import { useQuery } from '@tanstack/react-query'
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
+import {
+  addProject,
+  deleteProject,
+  getProjects,
+  selectCurrentProject,
+  updateProject,
+} from '../services/api'
 
 export const useProjects = () => {
-  const [projects, setProjects] = useState<Project[]>([])
-  const apiClient = useMemo(() => new LocalStorageRepository('projects'), [])
-  const navigate = useNavigate()
+  const queryClient = useQueryClient()
 
-  const { data } = useQuery({ queryKey: ['projects'], queryFn: apiClient.getAll })
+  const {
+    data: projects,
+    error,
+    isLoading,
+  } = useQuery<Project[], Error>({ queryKey: ['projects'], queryFn: getProjects })
 
-  const handleStorageChange = () => {
-    if (data) {
-      setProjects(data)
-    }
-  }
+  const addProjectMutation = useMutation({
+    mutationFn: addProject,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['projects'] })
+    },
+  })
 
-  useEffect(() => {
-    handleStorageChange()
+  const updateProjectMutation = useMutation({
+    mutationFn: updateProject,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['projects'] })
+    },
+  })
 
-    window.addEventListener('storage', handleStorageChange)
+  const deleteProjectMutation = useMutation({
+    mutationFn: deleteProject,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['projects'] })
+    },
+  })
 
-    return () => {
-      window.removeEventListener('storage', handleStorageChange)
-    }
-  }, [])
-
-  // const getProjects: Project[] = () => {
-
-  //   return apiClient.getAll()
-  // }
-
-  const addProject = (project: Project) => {
-    apiClient.create(project)
-
-    setProjects([...projects, project])
-  }
-
-  const deleteProject = (projectId: string) => {
-    apiClient.delete(projectId)
-
-    setProjects(projects.filter(p => p.id !== projectId))
-  }
-
-  const selectProject = (projectId: string) => {
-    const projects = apiClient.getAll()
-
-    projects.forEach((project: Project) => {
-      if (project.current === true && project.id !== projectId) {
-        apiClient.update({ ...project, current: false })
-      }
-    })
-
-    apiClient.update({ ...apiClient.getById(projectId), current: true })
-
-    navigate(`${projectId}`)
-  }
-
+  const selectProjectAsCurrentMutation = useMutation({
+    mutationFn: selectCurrentProject,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['projects'] })
+    },
+  })
   return {
     projects,
-    addProject,
-    // getProjects,
-    deleteProject,
-    selectProject,
+    error,
+    isLoading,
+    addProject: addProjectMutation.mutate,
+    updateProject: updateProjectMutation.mutate,
+    deleteProject: deleteProjectMutation.mutate,
+    selectProjectAsCurrent: selectProjectAsCurrentMutation.mutate,
   }
 }

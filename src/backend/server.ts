@@ -3,6 +3,7 @@ import cors from 'cors'
 import dotenv from 'dotenv'
 import mongoose from 'mongoose'
 import { UserRouter } from './routes/user'
+import { ProjectRouter } from './routes/project'
 // import User from './models/User'
 // import users from './users'
 dotenv.config()
@@ -16,7 +17,7 @@ app.use(cors())
 app.use(express.json())
 
 app.use(UserRouter)
-
+app.use(ProjectRouter)
 mongoose.connect(CONNECTION_STRING, { dbName: 'main' })
 
 // mongoose.connection.once('open', async () => {

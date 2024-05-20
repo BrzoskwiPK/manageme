@@ -6,10 +6,15 @@ import ProjectEditionModal from '../components/modals/ProjectEditionModal'
 const Projects: FC = () => {
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [modalType, setModalType] = useState<'add' | 'edit'>('add')
+  const [projectId, setProjectId] = useState<string>('')
 
-  const openModal = (type: 'add' | 'edit') => {
+  const openModal = (type: 'add' | 'edit', projectId?: string) => {
     setIsModalOpen(true)
     setModalType(type)
+
+    if (projectId) {
+      setProjectId(projectId)
+    }
   }
 
   const closeModal = () => {
@@ -25,6 +30,7 @@ const Projects: FC = () => {
       />
       <ProjectEditionModal
         closeModal={closeModal}
+        projectId={projectId}
         isModalOpen={isModalOpen && modalType === 'edit'}
       />
     </section>

@@ -7,7 +7,7 @@ export const useProjectForm = () => {
   const [name, setName] = useState<string>('')
   const [description, setDescription] = useState<string>('')
   const [formErrors, setFormErrors] = useState<string>('')
-  const { getProjects, addProject } = useProjects()
+  const { projects, addProject } = useProjects()
 
   const navigate = useNavigate()
 
@@ -19,8 +19,6 @@ export const useProjectForm = () => {
       return
     }
 
-    const projects: Project[] = getProjects()
-
     const project: Project = {
       id: crypto.randomUUID() as string,
       name,
@@ -28,13 +26,13 @@ export const useProjectForm = () => {
       current: false,
     }
 
-    if (projects.some(p => p.name === name)) {
+    if (projects && projects.some(p => p.name === name)) {
       setFormErrors('Project with this name already exists!')
       return
     }
 
     addProject(project)
-    window.dispatchEvent(new Event('storage'))
+
     setFormErrors('')
     navigate('/projects')
   }

@@ -1,25 +1,22 @@
 import { FC } from 'react'
 import { useProjects } from '../hooks/useProjects'
-import { useProject } from '../hooks/useProject'
 
 interface ProjectsListProps {
-  openModal: (type: 'add' | 'edit') => void
+  openModal: (type: 'add' | 'edit', projectId?: string) => void
 }
 
 const ProjectsList: FC<ProjectsListProps> = ({ openModal }: ProjectsListProps) => {
-  const { projects, deleteProject, selectProject } = useProjects()
-  const { getProject } = useProject()
+  const { projects, deleteProject, selectProjectAsCurrent } = useProjects()
 
   const handleProjectEdit = (projectId: string) => {
-    getProject(projectId)
-    openModal('edit')
+    openModal('edit', projectId)
   }
 
   return (
     <>
       <div className='w-full text-center text-2xl font-bold'>PROJECTS</div>
       <div className='w-full flex justify-center gap-12 my-6'>
-        {projects.length ? (
+        {projects?.length ? (
           projects.map(project => {
             return (
               <div
@@ -39,7 +36,7 @@ const ProjectsList: FC<ProjectsListProps> = ({ openModal }: ProjectsListProps) =
                     EDIT
                   </button>
                   <button
-                    onClick={() => selectProject(project.id)}
+                    onClick={() => selectProjectAsCurrent(project.id)}
                     className='rounded-md m-1 bg-green-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-green-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600'>
                     SELECT
                   </button>

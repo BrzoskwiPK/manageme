@@ -1,20 +1,25 @@
 import { FC, FormEvent } from 'react'
-import { useProject } from '../../hooks/useProject'
+import { useProjectEditForm } from '../../hooks/useProjectEditForm'
 
 interface EditProjectFormProps {
+  projectId: string
   closeModal: (e: FormEvent) => void
 }
 
-const EditProjectForm: FC<EditProjectFormProps> = ({ closeModal }: EditProjectFormProps) => {
-  const { name, setName, description, setDescription, updateProject } = useProject()
+const EditProjectForm: FC<EditProjectFormProps> = ({
+  closeModal,
+  projectId,
+}: EditProjectFormProps) => {
+  const { name, description, handleSubmit, handleNameChange, handleDescriptionChange } =
+    useProjectEditForm(projectId)
 
-  const handleSubmit = (e: FormEvent) => {
-    updateProject()
+  const handleSubmitForm = (e: FormEvent) => {
+    handleSubmit(e)
     closeModal(e)
   }
 
   return (
-    <form className='space-y-6 w-[500px]' onSubmit={handleSubmit}>
+    <form className='space-y-6 w-[500px]' onSubmit={handleSubmitForm}>
       <div>
         <label htmlFor='name' className='block text-sm font-medium leading-6 text-gray-900'>
           Project name <span className='text-red-500'>*</span>
@@ -28,7 +33,7 @@ const EditProjectForm: FC<EditProjectFormProps> = ({ closeModal }: EditProjectFo
             required
             maxLength={50}
             value={name}
-            onChange={e => setName(e.target.value)}
+            onChange={handleNameChange}
             className='block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6'
           />
         </div>
@@ -50,7 +55,7 @@ const EditProjectForm: FC<EditProjectFormProps> = ({ closeModal }: EditProjectFo
             required
             maxLength={150}
             value={description}
-            onChange={e => setDescription(e.target.value)}
+            onChange={handleDescriptionChange}
             className='w-full block max-h-[200px] rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6'
           />
         </div>

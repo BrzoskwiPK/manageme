@@ -1,44 +1,11 @@
-import { useMemo, useState } from 'react'
+import { useQuery } from '@tanstack/react-query'
 import { Project } from '../types/types'
-import { LocalStorageRepository } from '../backend/ApiClient'
+import { getProject } from '../services/api'
 
-export const useProject = () => {
-  const [name, setName] = useState<string>('')
-  const [description, setDescription] = useState<string>('')
-  const [project, setProject] = useState<Project | null>(null)
-  const [isLoading, setIsLoading] = useState<boolean>(true)
-
-  const apiClient = useMemo(() => new LocalStorageRepository('projects'), [])
-
-  const getProject = (projectId: string) => {
-    const p = apiClient.getById(projectId) as Project
-
-    setProject(p)
-
-    setName(p.name)
-    setDescription(p.description)
-    setIsLoading(false)
-  }
-
-  const updateProject = () => {
-    if (project) {
-      apiClient.update({ ...project, name, description })
-    }
-  }
-
-  const getData = () => {
-    return { name, description }
-  }
-
-  return {
-    isLoading,
-    project,
-    getData,
-    getProject,
-    updateProject,
-    name,
-    setName,
-    description,
-    setDescription,
-  }
+export const useProject = (projectId: string) => {
+  return useQuery<Project, Error>({
+    queryKey: [`projectToEdit`],
+    queryFn: () => getProject(projectId),
+    enabled: !!projectId,
+  })
 }
