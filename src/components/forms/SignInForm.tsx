@@ -15,7 +15,7 @@ const SignInForm: FC<SignInFormProps> = ({
     <form className='space-y-6' onSubmit={onSubmit}>
       <div>
         <label htmlFor='username' className='block text-sm font-medium leading-6 text-gray-900'>
-          Username
+          Username <span className='text-red-500'>*</span>
         </label>
         <div className='mt-2'>
           <input
@@ -34,7 +34,7 @@ const SignInForm: FC<SignInFormProps> = ({
       <div>
         <div className='flex items-center justify-between'>
           <label htmlFor='password' className='block text-sm font-medium leading-6 text-gray-900'>
-            Password
+            Password <span className='text-red-500'>*</span>
           </label>
         </div>
         <div className='mt-2'>
@@ -55,7 +55,7 @@ const SignInForm: FC<SignInFormProps> = ({
         <button
           type='submit'
           className='flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600'>
-          Sign in
+          SIGN IN
         </button>
       </div>
     </form>

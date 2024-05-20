@@ -1,12 +1,15 @@
 import { FC, useState } from 'react'
 import ProjectsList from '../components/ProjectsList'
 import ProjectCreationModal from '../components/modals/ProjectCreationModal'
+import ProjectEditionModal from '../components/modals/ProjectEditionModal'
 
 const Projects: FC = () => {
   const [isModalOpen, setIsModalOpen] = useState(false)
+  const [modalType, setModalType] = useState<'add' | 'edit'>('add')
 
-  const openModal = () => {
+  const openModal = (type: 'add' | 'edit') => {
     setIsModalOpen(true)
+    setModalType(type)
   }
 
   const closeModal = () => {
@@ -16,7 +19,14 @@ const Projects: FC = () => {
   return (
     <section className='flex flex-col items-center justify-center w-full h-full'>
       <ProjectsList openModal={openModal} />
-      <ProjectCreationModal closeModal={closeModal} isModalOpen={isModalOpen} />
+      <ProjectCreationModal
+        closeModal={closeModal}
+        isModalOpen={isModalOpen && modalType === 'add'}
+      />
+      <ProjectEditionModal
+        closeModal={closeModal}
+        isModalOpen={isModalOpen && modalType === 'edit'}
+      />
     </section>
   )
 }

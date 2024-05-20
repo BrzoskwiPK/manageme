@@ -5,21 +5,6 @@ export type Project = {
   current: boolean
 }
 
-export interface APIDataAccess {
-  getAll(): Project[]
-  get(id: string): Project | null
-  create(project: Project): void
-  update(project: Project): void
-  delete(id: string): void
-}
-
-export type User = {
-  id: string
-  name: string
-  surname: string
-  role: Role
-}
-
 export type Story = {
   id: string
   title: string
@@ -29,6 +14,19 @@ export type Story = {
   created: Date
   state: State
   owner: string
+}
+
+export type Task = {
+  name: string
+  description: string
+  priority: Priority
+  story: Story
+  estimatedTime: number // estimated in hours
+  state: TaskState
+  createdAt: Date
+  startedAt?: Date
+  finishedAt?: Date
+  responsibleUser?: User
 }
 
 export enum Priority {
@@ -55,15 +53,24 @@ export enum Role {
   DEVELOPER,
 }
 
-export type Task = {
+export type User = {
+  id: string
   name: string
-  description: string
-  priority: Priority
-  story: Story
-  estimatedTime: number // estimated in hours
-  state: TaskState
-  createdAt: Date
-  startedAt?: Date
-  finishedAt?: Date
-  responsibleUser?: User
+  surname: string
+  role: Role
+  username: string
+  password: string
+}
+
+export interface APIDataAccess {
+  getAll(): Project[]
+  get(id: string): Project | null
+  create(project: Project): void
+  update(project: Project): void
+  delete(id: string): void
+}
+
+export type LoginRequest = {
+  username: string
+  password: string
 }

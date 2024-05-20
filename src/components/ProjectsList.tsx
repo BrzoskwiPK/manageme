@@ -1,42 +1,18 @@
-import { FC, useState } from 'react'
-import { Project } from '../types/types'
+import { FC } from 'react'
+import { useProjects } from '../hooks/useProjects'
+import { useProject } from '../hooks/useProject'
 
 interface ProjectsListProps {
-  openModal: () => void
+  openModal: (type: 'add' | 'edit') => void
 }
 
 const ProjectsList: FC<ProjectsListProps> = ({ openModal }: ProjectsListProps) => {
-  const [projects, setProjects] = useState<Project[]>([
-    {
-      id: '1',
-      name: 'Project 1',
-      description: 'This is the first project',
-      current: false,
-    },
-    {
-      id: '2',
-      name: 'Project 2',
-      description: 'This is the second project',
-      current: false,
-    },
-    {
-      id: '3',
-      name: 'Project 3',
-      description: 'This is the third project',
-      current: false,
-    },
-  ])
+  const { projects, deleteProject, selectProject } = useProjects()
+  const { getProject } = useProject()
 
-  const handleDeleteProject = (projectId: string) => {
-    // TODO: Implement delete project logic
-  }
-
-  const handleEditProject = (projectId: string) => {
-    // TODO: Implement edit project logic
-  }
-
-  const handleSelectProject = (projectId: string) => {
-    // TODO: Implement select project logic
+  const handleProjectEdit = (projectId: string) => {
+    getProject(projectId)
+    openModal('edit')
   }
 
   return (
@@ -53,17 +29,17 @@ const ProjectsList: FC<ProjectsListProps> = ({ openModal }: ProjectsListProps) =
                 <div className='text-lg'>{project.description}</div>
                 <div className='flex justify-center mt-2'>
                   <button
-                    onClick={() => handleDeleteProject(project.id)}
+                    onClick={() => deleteProject(project.id)}
                     className='rounded-md m-1 bg-red-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-red-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600'>
                     DELETE
                   </button>
                   <button
-                    onClick={() => handleEditProject(project.id)}
+                    onClick={() => handleProjectEdit(project.id)}
                     className='rounded-md m-1 bg-yellow-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-yellow-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-yellow-600'>
                     EDIT
                   </button>
                   <button
-                    onClick={() => handleSelectProject(project.id)}
+                    onClick={() => selectProject(project.id)}
                     className='rounded-md m-1 bg-green-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-green-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600'>
                     SELECT
                   </button>
@@ -72,12 +48,12 @@ const ProjectsList: FC<ProjectsListProps> = ({ openModal }: ProjectsListProps) =
             )
           })
         ) : (
-          <p>Currently there are no projects available</p>
+          <p>Start by adding your first project!</p>
         )}
       </div>
       <button
         type='submit'
-        onClick={openModal}
+        onClick={() => openModal('add')}
         className='flex justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600'>
         ADD A PROJECT
       </button>{' '}

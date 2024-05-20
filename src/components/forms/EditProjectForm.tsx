@@ -1,21 +1,23 @@
-import { ChangeEvent, FC, FormEvent } from 'react'
+import { FC, FormEvent } from 'react'
+import { useProject } from '../../hooks/useProject'
 
-interface ProjectFormProps {
-  onSubmit: (e: FormEvent) => Promise<void>
-  onNameChange: (e: ChangeEvent<HTMLInputElement>) => void
-  onDescriptionChange: (e: ChangeEvent<HTMLTextAreaElement>) => void
+interface EditProjectFormProps {
+  closeModal: (e: FormEvent) => void
 }
 
-const ProjectForm: FC<ProjectFormProps> = ({
-  onSubmit,
-  onNameChange,
-  onDescriptionChange,
-}: ProjectFormProps) => {
+const EditProjectForm: FC<EditProjectFormProps> = ({ closeModal }: EditProjectFormProps) => {
+  const { name, setName, description, setDescription, updateProject } = useProject()
+
+  const handleSubmit = (e: FormEvent) => {
+    updateProject()
+    closeModal(e)
+  }
+
   return (
-    <form className='space-y-6 w-[500px]' onSubmit={onSubmit}>
+    <form className='space-y-6 w-[500px]' onSubmit={handleSubmit}>
       <div>
         <label htmlFor='name' className='block text-sm font-medium leading-6 text-gray-900'>
-          Project name
+          Project name <span className='text-red-500'>*</span>
         </label>
         <div className='mt-2'>
           <input
@@ -25,7 +27,8 @@ const ProjectForm: FC<ProjectFormProps> = ({
             autoComplete='name'
             required
             maxLength={50}
-            onChange={onNameChange}
+            value={name}
+            onChange={e => setName(e.target.value)}
             className='block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6'
           />
         </div>
@@ -36,7 +39,7 @@ const ProjectForm: FC<ProjectFormProps> = ({
           <label
             htmlFor='description'
             className='block text-sm font-medium leading-6 text-gray-900'>
-            Project description
+            Project description <span className='text-red-500'>*</span>
           </label>
         </div>
         <div className='mt-2'>
@@ -46,21 +49,21 @@ const ProjectForm: FC<ProjectFormProps> = ({
             autoComplete='description'
             required
             maxLength={150}
-            onChange={onDescriptionChange}
+            value={description}
+            onChange={e => setDescription(e.target.value)}
             className='w-full block max-h-[200px] rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6'
           />
         </div>
-      </div>
-
-      <div>
-        <button
-          type='submit'
-          className='flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600'>
-          SUBMIT
-        </button>
+        <div className='mt-2'>
+          <button
+            type='submit'
+            className='flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600'>
+            SUBMIT
+          </button>
+        </div>
       </div>
     </form>
   )
 }
 
-export default ProjectForm
+export default EditProjectForm

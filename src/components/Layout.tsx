@@ -6,11 +6,11 @@ import { FC } from 'react'
 const Layout: FC = () => {
   return (
     <>
-      <Header></Header>
-      <div className='w-full h-[80vh]'>
+      <Header />
+      <div className='w-full h-[80vh] flex items-center justify-center'>
         <Outlet />
       </div>
-      <Footer></Footer>
+      <Footer />
     </>
   )
 }

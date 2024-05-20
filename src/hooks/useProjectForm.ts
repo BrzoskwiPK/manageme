@@ -1,18 +1,41 @@
 import { ChangeEvent, FormEvent, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { Project } from '../types/types'
+import { useProjects } from './useProjects'
 
 export const useProjectForm = () => {
-  //   const [id, setId] = useState<string>('')
   const [name, setName] = useState<string>('')
   const [description, setDescription] = useState<string>('')
-  const [formError, setFormError] = useState<string>('')
+  const [formErrors, setFormErrors] = useState<string>('')
+  const { getProjects, addProject } = useProjects()
 
   const navigate = useNavigate()
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault()
 
-    setFormError('')
+    if (!name || !description) {
+      setFormErrors('Please fill out all fields!')
+      return
+    }
+
+    const projects: Project[] = getProjects()
+
+    const project: Project = {
+      id: crypto.randomUUID() as string,
+      name,
+      description,
+      current: false,
+    }
+
+    if (projects.some(p => p.name === name)) {
+      setFormErrors('Project with this name already exists!')
+      return
+    }
+
+    addProject(project)
+    window.dispatchEvent(new Event('storage'))
+    setFormErrors('')
     navigate('/projects')
   }
 
@@ -23,7 +46,7 @@ export const useProjectForm = () => {
   return {
     name,
     description,
-    formError,
+    formErrors,
     handleSubmit,
     handleNameChange,
     handleDescriptionChange,
