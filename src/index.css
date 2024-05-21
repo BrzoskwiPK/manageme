@@ -1,3 +1,37 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+* {
+  @apply transition-colors duration-200;
+}
+
+@layer base {
+  :root {
+    --color-background: 243 244 246;
+    --color-content: 0 0 0;
+    --color-button-primary: 79 70 229;
+    --color-button-primary-hover: 99 102 241;
+    --color-button-edit: 202 138 4;
+    --color-button-edit-hover: 234 179 8;
+    --color-button-delete: 220 38 38;
+    --color-button-delete-hover: 239 68 68;
+    --color-button-select: 22 163 74;
+    --color-button-select-hover: 34 197 94;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --color-background: 44 44 44;
+      --color-content: 255 255 255;
+      --color-button-primary: 79 70 229;
+      --color-button-primary-hover: 99 102 241;
+      --color-button-edit: 202 138 4;
+      --color-button-edit-hover: 234 179 8;
+      --color-button-delete: 220 38 38;
+      --color-button-delete-hover: 239 68 68;
+      --color-button-select: 22 163 74;
+      --color-button-select-hover: 34 197 94;
+    }
+  }
+}

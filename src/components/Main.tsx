@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 
 const Main: FC = () => {
   return (
-    <section className='h-full w-full flex flex-col items-center bg-gray-100 text-gray-800 text-center'>
+    <section className='h-full w-full flex flex-col items-center bg-background text-gray-800 text-center'>
       <header className='w-full bg-indigo-600 text-white py-6'>
         <h1 className='text-3xl font-bold text-center'>Welcome to Manage.me</h1>
         <p className='text-center mt-2'>Your ultimate productivity companion</p>

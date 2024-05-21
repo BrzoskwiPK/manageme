@@ -7,7 +7,7 @@ const Layout: FC = () => {
   return (
     <>
       <Header />
-      <div className='w-full h-[80vh] flex items-center justify-center bg-gray-100'>
+      <div className='w-full h-[80vh] flex items-center justify-center bg-background'>
         <Outlet />
       </div>
       <Footer />

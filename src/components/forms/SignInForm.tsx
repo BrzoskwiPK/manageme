@@ -14,7 +14,7 @@ const SignInForm: FC<SignInFormProps> = ({
   return (
     <form className='space-y-6' onSubmit={onSubmit}>
       <div>
-        <label htmlFor='username' className='block text-sm font-medium leading-6 text-gray-900'>
+        <label htmlFor='username' className='block text-sm font-medium leading-6 text-content'>
           Username <span className='text-red-500'>*</span>
         </label>
         <div className='mt-2'>
@@ -33,7 +33,7 @@ const SignInForm: FC<SignInFormProps> = ({
 
       <div>
         <div className='flex items-center justify-between'>
-          <label htmlFor='password' className='block text-sm font-medium leading-6 text-gray-900'>
+          <label htmlFor='password' className='block text-sm font-medium leading-6 text-content'>
             Password <span className='text-red-500'>*</span>
           </label>
         </div>
