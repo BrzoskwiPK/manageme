@@ -6,7 +6,7 @@ const Header: FC = () => {
   const authUser: { username: string } | null = useAuthUser()
 
   return (
-    <header className='flex justify-between h-[15vh] w-full items-center'>
+    <header className='flex justify-between h-[15vh] w-full items-center bg-gray-100'>
       <Link to='/'>
         <div className='flex items-center justify-center pl-8'>
           <figure className='flex items-center justify-center'>

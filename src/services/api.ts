@@ -1,5 +1,5 @@
 import axios, { AxiosResponse } from 'axios'
-import { LoginRequest, Project } from '../types/types'
+import { LoginRequest, Project, Story } from '../types/types'
 
 const BASE_URL = 'http://localhost:3000'
 
@@ -21,7 +21,7 @@ export const addProject = async (newProject: Project): Promise<Project> => {
 }
 
 export const updateProject = async (updatedProject: Project): Promise<Project> => {
-  const response = await axios.put(`${BASE_URL}/projects/${updatedProject.id}`, updatedProject)
+  const response = await axios.patch(`${BASE_URL}/projects/${updatedProject.id}`, updatedProject)
   return response.data
 }
 
@@ -31,5 +31,27 @@ export const deleteProject = async (projectId: string): Promise<void> => {
 
 export const selectCurrentProject = async (projectId: string): Promise<void> => {
   const response = await axios.patch(`${BASE_URL}/projects/${projectId}/current`)
+  return response.data
+}
+
+export const getStories = async (projectId: string): Promise<Story[]> => {
+  const response = await axios.get(`${BASE_URL}/stories/${projectId}`)
+  return response.data
+}
+
+export const deleteStory = async (projectId: string): Promise<void> => {
+  await axios.delete(`${BASE_URL}/stories/${projectId}`)
+}
+
+export const addStory = async (newStory: Story): Promise<Story> => {
+  const response: AxiosResponse<Story> = await axios.post(`${BASE_URL}/stories`, newStory)
+  return response.data
+}
+
+export const updateStory = async (updatedStory: Story): Promise<Story> => {
+  const response: AxiosResponse<Story> = await axios.patch(
+    `${BASE_URL}/stories/${updatedStory.id}`,
+    updatedStory
+  )
   return response.data
 }

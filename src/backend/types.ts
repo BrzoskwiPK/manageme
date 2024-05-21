@@ -17,3 +17,15 @@ export type LoginRequest = {
   username: string
   password: string
 }
+
+export enum State {
+  TODO = 'TODO',
+  DOING = 'DOING',
+  DONE = 'DONE',
+}
+
+export enum Priority {
+  LOW = 'LOW',
+  MEDIUM = 'MEDIUM',
+  HIGH = 'HIGH',
+}

@@ -53,7 +53,7 @@ router.delete('/projects/:projectId', async (req: Request, res: Response) => {
   }
 })
 
-router.put('/projects/:projectId', async (req: Request, res: Response) => {
+router.patch('/projects/:projectId', async (req: Request, res: Response) => {
   const projectId = req.params.projectId
   const { name, description, current } = req.body
   try {

@@ -10,7 +10,7 @@ export type Story = {
   title: string
   description: string
   priority: Priority
-  project: Project
+  projectId: string
   created: Date
   state: State
   owner: string
@@ -22,7 +22,7 @@ export type Task = {
   priority: Priority
   story: Story
   estimatedTime: number // estimated in hours
-  state: TaskState
+  state: State
   createdAt: Date
   startedAt?: Date
   finishedAt?: Date
@@ -30,21 +30,15 @@ export type Task = {
 }
 
 export enum Priority {
-  LOW,
-  MEDIUM,
-  HIGH,
+  LOW = 'LOW',
+  MEDIUM = 'MEDIUM',
+  HIGH = 'HIGH',
 }
 
 export enum State {
-  DEFINED,
-  IN_PROGRESS,
-  COMPLETED,
-}
-
-export enum TaskState {
-  TODO,
-  DOING,
-  DONE,
+  TODO = 'TODO',
+  DOING = 'DOING',
+  DONE = 'DONE',
 }
 
 export enum Role {

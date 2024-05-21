@@ -15,15 +15,27 @@ const ProjectEditionModal: FC<ProjectEditionModalProps> = ({
   return (
     <>
       {isModalOpen && (
-        <div className='fixed top-0 left-0 w-full h-full flex items-center justify-center bg-gray-500 bg-opacity-50'>
-          <div className='bg-white rounded-md p-4 flex flex-col items-center justify-center'>
-            <h1 className='font-semibold text-2xl'>Edit The Project</h1>
-            <EditProjectForm closeModal={closeModal} projectId={projectId} />
+        <div className='fixed inset-0 z-50 flex items-center justify-center bg-gray-800 bg-opacity-75'>
+          <div className='relative bg-white rounded-lg p-6 w-full max-w-md shadow-lg'>
             <button
               onClick={closeModal}
-              className='flex w-full mt-2 justify-center rounded-md bg-gray-400 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-gray-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600'>
-              CANCEL
+              className='absolute top-3 right-3 text-gray-400 hover:text-gray-600 focus:outline-none'>
+              <svg
+                xmlns='http://www.w3.org/2000/svg'
+                className='h-6 w-6'
+                fill='none'
+                viewBox='0 0 24 24'
+                stroke='currentColor'>
+                <path
+                  strokeLinecap='round'
+                  strokeLinejoin='round'
+                  strokeWidth={2}
+                  d='M6 18L18 6M6 6l12 12'
+                />
+              </svg>
             </button>
+            <h1 className='text-center font-semibold text-2xl mb-4'>Edit The Project</h1>
+            <EditProjectForm closeModal={closeModal} projectId={projectId} />
           </div>
         </div>
       )}

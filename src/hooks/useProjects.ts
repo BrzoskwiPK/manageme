@@ -44,6 +44,11 @@ export const useProjects = () => {
       queryClient.invalidateQueries({ queryKey: ['projects'] })
     },
   })
+
+  const getCurrentProject = () => {
+    return projects?.find(project => project.current === true)
+  }
+
   return {
     projects,
     error,
@@ -52,5 +57,6 @@ export const useProjects = () => {
     updateProject: updateProjectMutation.mutate,
     deleteProject: deleteProjectMutation.mutate,
     selectProjectAsCurrent: selectProjectAsCurrentMutation.mutate,
+    getCurrentProject,
   }
 }
