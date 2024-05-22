@@ -29,7 +29,9 @@ const AddStoryForm: FC<AddStoryFormProps> = ({ projectId, closeModal }) => {
     <form onSubmit={(e: FormEvent) => combinedHandleSubmit(e)} className='space-y-6'>
       <h2 className='text-2xl font-bold text-center mb-4'>Create New Story</h2>
       <div>
-        <label className='block text-sm font-medium text-gray-700'>Title</label>
+        <label className='block text-sm font-medium text-gray-700'>
+          Title <span className='text-red-500'>*</span>
+        </label>
         <input
           type='text'
           value={title}
@@ -39,7 +41,9 @@ const AddStoryForm: FC<AddStoryFormProps> = ({ projectId, closeModal }) => {
         />
       </div>
       <div>
-        <label className='block text-sm font-medium text-gray-700'>Description</label>
+        <label className='block text-sm font-medium text-gray-700'>
+          Description <span className='text-red-500'>*</span>
+        </label>
         <textarea
           value={description}
           onChange={e => setDescription(e.target.value)}
@@ -47,7 +51,9 @@ const AddStoryForm: FC<AddStoryFormProps> = ({ projectId, closeModal }) => {
           required></textarea>
       </div>
       <div>
-        <label className='block text-sm font-medium text-gray-700'>Priority</label>
+        <label className='block text-sm font-medium text-gray-700'>
+          Priority <span className='text-red-500'>*</span>
+        </label>
         <select
           value={priority}
           onChange={e => setPriority(e.target.value as Priority)}
@@ -58,7 +64,9 @@ const AddStoryForm: FC<AddStoryFormProps> = ({ projectId, closeModal }) => {
         </select>
       </div>
       <div>
-        <label className='block text-sm font-medium text-gray-700'>State</label>
+        <label className='block text-sm font-medium text-gray-700'>
+          State <span className='text-red-500'>*</span>
+        </label>
         <select
           value={state}
           onChange={e => setState(e.target.value as State)}

@@ -17,16 +17,17 @@ export type Story = {
 }
 
 export type Task = {
+  id: string
   name: string
   description: string
   priority: Priority
-  story: Story
+  storyId: string
   estimatedTime: number // estimated in hours
   state: State
   createdAt: Date
   startedAt?: Date
   finishedAt?: Date
-  responsibleUser?: User
+  responsibleUser?: string
 }
 
 export enum Priority {
@@ -42,9 +43,9 @@ export enum State {
 }
 
 export enum Role {
-  ADMIN,
-  DEVOPS,
-  DEVELOPER,
+  ADMIN = 'ADMIN',
+  DEVOPS = 'DEVOPS',
+  DEVELOPER = 'DEVELOPER',
 }
 
 export type User = {

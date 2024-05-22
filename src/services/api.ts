@@ -1,5 +1,5 @@
 import axios, { AxiosResponse } from 'axios'
-import { LoginRequest, Project, Story } from '../types/types'
+import { LoginRequest, Project, Story, Task } from '../types/types'
 
 const BASE_URL = 'http://localhost:3000'
 
@@ -53,5 +53,24 @@ export const updateStory = async (updatedStory: Story): Promise<Story> => {
     `${BASE_URL}/stories/${updatedStory.id}`,
     updatedStory
   )
+  return response.data
+}
+
+export const getTasks = async (storyId: string): Promise<Task[]> => {
+  const response = await axios.get(`${BASE_URL}/tasks/${storyId}`)
+  return response.data
+}
+
+export const addTask = async (newTask: Task): Promise<Task> => {
+  const response = await axios.post(`${BASE_URL}/tasks`, newTask)
+  return response.data
+}
+
+export const deleteTask = async (taskId: string): Promise<void> => {
+  await axios.delete(`${BASE_URL}/tasks/${taskId}`)
+}
+
+export const updateTask = async (updatedTask: Task): Promise<Task> => {
+  const response = await axios.patch(`${BASE_URL}/tasks/${updatedTask.id}`, updatedTask)
   return response.data
 }

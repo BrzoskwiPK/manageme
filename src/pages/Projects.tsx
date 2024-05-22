@@ -1,5 +1,5 @@
 import { FC, useState } from 'react'
-import ProjectsList from '../components/ProjectsList'
+import ProjectList from '../components/ProjectList'
 import ProjectCreationModal from '../components/modals/ProjectCreationModal'
 import ProjectEditionModal from '../components/modals/ProjectEditionModal'
 
@@ -23,7 +23,7 @@ const Projects: FC = () => {
 
   return (
     <section className='flex flex-col items-center justify-center w-full h-full'>
-      <ProjectsList openModal={openModal} />
+      <ProjectList openModal={openModal} />
       <ProjectCreationModal
         closeModal={closeModal}
         isModalOpen={isModalOpen && modalType === 'add'}

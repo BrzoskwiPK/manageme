@@ -10,7 +10,7 @@ const EditProjectForm: FC<EditProjectFormProps> = ({
   closeModal,
   projectId,
 }: EditProjectFormProps) => {
-  const { name, description, handleSubmit, handleNameChange, handleDescriptionChange } =
+  const { name, description, handleSubmit, formErrors, handleNameChange, handleDescriptionChange } =
     useProjectEditForm(projectId)
 
   const handleSubmitForm = (e: FormEvent) => {
@@ -40,7 +40,6 @@ const EditProjectForm: FC<EditProjectFormProps> = ({
           />
         </div>
       </div>
-
       <div>
         <label htmlFor='description' className='block text-sm font-medium leading-6 text-gray-900'>
           Project description <span className='text-red-500'>*</span>
@@ -58,7 +57,7 @@ const EditProjectForm: FC<EditProjectFormProps> = ({
           />
         </div>
       </div>
-
+      {formErrors && <div className='text-red-500 text-sm'>{formErrors}</div>}
       <div className='mt-6'>
         <button
           type='submit'

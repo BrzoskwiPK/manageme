@@ -6,7 +6,7 @@ interface ProjectsListProps {
   openModal: (type: 'add' | 'edit', projectId?: string) => void
 }
 
-const ProjectsList: FC<ProjectsListProps> = ({ openModal }: ProjectsListProps) => {
+const ProjectList: FC<ProjectsListProps> = ({ openModal }: ProjectsListProps) => {
   const { projects, deleteProject, selectProjectAsCurrent } = useProjects()
 
   const navigate = useNavigate()
@@ -66,4 +66,4 @@ const ProjectsList: FC<ProjectsListProps> = ({ openModal }: ProjectsListProps) =
   )
 }
 
-export default ProjectsList
+export default ProjectList

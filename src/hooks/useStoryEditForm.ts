@@ -22,10 +22,10 @@ export const useStoryEditForm = (storyId: string) => {
         setCurrentStory(currentStory)
       }
     }
-  }, [storyId, stories])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [storyId])
 
   const handleSubmit = async (e: FormEvent) => {
-    console.log('wywoluje sie')
     e.preventDefault()
 
     if (!title || !description || !state || !priority) {

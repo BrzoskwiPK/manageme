@@ -18,7 +18,8 @@ export const useProjectEditForm = (projectId: string) => {
         setCurrentProject(currentProject)
       }
     }
-  }, [projectId, projects])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [projectId])
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault()

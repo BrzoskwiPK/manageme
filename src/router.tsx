@@ -6,6 +6,7 @@ const Loading = lazy(() => import('./components/Loading'))
 const Main = lazy(() => import('./components/Main'))
 const ProtectedRoute = lazy(() => import('./components/ProtectedRoute'))
 const RouteError = lazy(() => import('./components/RouteError'))
+const TaskList = lazy(() => import('./components/TaskList'))
 
 const SignIn = lazy(() => import('./pages/SignIn'))
 const Projects = lazy(() => import('./pages/Projects'))
@@ -53,6 +54,16 @@ const AppRouter = createBrowserRouter(
           <Suspense fallback={<Loading />}>
             <ProtectedRoute>
               <CurrentProject />
+            </ProtectedRoute>
+          </Suspense>
+        }
+      />
+      <Route
+        path='/projects/current/tasks'
+        element={
+          <Suspense fallback={<Loading />}>
+            <ProtectedRoute>
+              <TaskList />
             </ProtectedRoute>
           </Suspense>
         }

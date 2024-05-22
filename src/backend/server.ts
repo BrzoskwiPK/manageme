@@ -5,6 +5,7 @@ import mongoose from 'mongoose'
 import { UserRouter } from './routes/user'
 import { ProjectRouter } from './routes/project'
 import { StoryRouter } from './routes/story'
+import { TaskRouter } from './routes/task'
 dotenv.config()
 
 const app: Application = express()
@@ -18,6 +19,7 @@ app.use(express.json())
 app.use(UserRouter)
 app.use(ProjectRouter)
 app.use(StoryRouter)
+app.use(TaskRouter)
 
 mongoose.connect(CONNECTION_STRING, { dbName: 'main' })
 
