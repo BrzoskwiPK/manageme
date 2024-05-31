@@ -28,11 +28,20 @@ router.post('/tasks', async (req: Request, res: Response) => {
 })
 
 router.patch('/tasks/:id', async (req: Request, res: Response) => {
-  const { name, description, priority, estimatedTime, state, startedAt, finishedAt } = req.body
+  const {
+    name,
+    description,
+    priority,
+    estimatedTime,
+    state,
+    startedAt,
+    finishedAt,
+    responsibleUser,
+  } = req.body
   try {
     const task = await TaskModel.updateOne(
       { id: req.params.id },
-      { name, description, priority, estimatedTime, state, startedAt, finishedAt },
+      { name, description, priority, estimatedTime, state, startedAt, finishedAt, responsibleUser },
       {
         new: true,
         runValidators: true,

@@ -9,7 +9,11 @@ export const useTasks = (storyId: string) => {
     data: tasks,
     error,
     isLoading,
-  } = useQuery<Task[], Error>({ queryKey: ['tasks'], queryFn: () => getTasks(storyId) })
+  } = useQuery<Task[], Error>({
+    queryKey: ['tasks'],
+    staleTime: 100 * 60 * 1000,
+    queryFn: () => getTasks(storyId),
+  })
 
   const addTaskMutation = useMutation({
     mutationFn: addTask,

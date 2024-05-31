@@ -32,20 +32,20 @@ const ProjectList: FC<ProjectsListProps> = ({ openModal }: ProjectsListProps) =>
               className='w-full max-w-xs p-6 bg-white rounded-lg shadow-lg flex flex-col items-center'>
               <h2 className='text-2xl font-bold mb-2'>{project.name}</h2>
               <p className='text-gray-700 mb-4'>{project.description}</p>
-              <div className='flex justify-center gap-2'>
+              <div className='flex justify-center gap-2 w-full'>
                 <button
                   onClick={() => handleProjectSelection(project.id)}
-                  className='rounded-md bg-green-600 px-4 py-2 text-sm font-semibold text-white shadow-md hover:bg-green-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-600'>
+                  className='w-1/3 text-center rounded-md bg-green-600 px-4 py-2 text-sm font-semibold text-white shadow-md hover:bg-green-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-600'>
                   SELECT
                 </button>
                 <button
                   onClick={() => handleProjectEdit(project.id)}
-                  className='rounded-md bg-yellow-600 px-4 py-2 text-sm font-semibold text-white shadow-md hover:bg-yellow-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-600'>
+                  className='w-1/3 text-center rounded-md bg-yellow-600 px-4 py-2 text-sm font-semibold text-white shadow-md hover:bg-yellow-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-600'>
                   EDIT
                 </button>
                 <button
                   onClick={() => deleteProject(project.id)}
-                  className='rounded-md bg-red-600 px-4 py-2 text-sm font-semibold text-white shadow-md hover:bg-red-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-600'>
+                  className='w-1/3 text-center rounded-md bg-red-600 px-4 py-2 text-sm font-semibold text-white shadow-md hover:bg-red-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-600'>
                   DELETE
                 </button>
               </div>

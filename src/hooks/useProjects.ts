@@ -15,7 +15,11 @@ export const useProjects = () => {
     data: projects,
     error,
     isLoading,
-  } = useQuery<Project[], Error>({ queryKey: ['projects'], queryFn: getProjects })
+  } = useQuery<Project[], Error>({
+    queryKey: ['projects'],
+    staleTime: 100 * 60 * 1000,
+    queryFn: getProjects,
+  })
 
   const addProjectMutation = useMutation({
     mutationFn: addProject,

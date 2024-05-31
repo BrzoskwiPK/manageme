@@ -21,24 +21,23 @@ const StoryCard: FC<StoryCardProps> = ({ story, showTasks, openModal, deleteStor
           <span className='font-bold'>Owner:</span> {story.owner}
         </p>
         <p className='text-sm text-gray-500'>
-          <span className='font-bold'>Created At:</span>{' '}
-          {new Date(story.created).toLocaleDateString()}
+          <span className='font-bold'>Created At:</span> {new Date(story.created).toUTCString()}
         </p>
       </div>
-      <div className='flex justify-center gap-4 mt-4'>
+      <div className='flex justify-center gap-4 mt-4 max-w-full'>
         <button
           onClick={() => showTasks(story.id)}
-          className='rounded-md bg-green-600 px-4 py-2 text-sm font-semibold text-white shadow-md hover:bg-green-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-600'>
+          className='w-1/3 text-center rounded-md bg-green-600 px-4 py-2 text-sm font-semibold text-white shadow-md hover:bg-green-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-600'>
           SHOW TASKS
         </button>
         <button
           onClick={() => openModal('edit', story.id)}
-          className='rounded-md bg-yellow-600 px-4 py-2 text-sm font-semibold text-white shadow-md hover:bg-yellow-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-600'>
+          className='w-1/3 text-center rounded-md bg-yellow-600 px-4 py-2 text-sm font-semibold text-white shadow-md hover:bg-yellow-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-600'>
           EDIT
         </button>
         <button
           onClick={() => deleteStory(story.id)}
-          className='rounded-md bg-red-600 px-4 py-2 text-sm font-semibold text-white shadow-md hover:bg-red-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-600'>
+          className='w-1/3 text-center rounded-md bg-red-600 px-4 py-2 text-sm font-semibold text-white shadow-md hover:bg-red-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-600'>
           DELETE
         </button>
       </div>

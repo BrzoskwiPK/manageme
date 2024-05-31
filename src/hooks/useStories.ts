@@ -9,7 +9,11 @@ export const useStories = (projectId: string) => {
     data: stories,
     error,
     isLoading,
-  } = useQuery<Story[], Error>({ queryKey: ['stories'], queryFn: () => getStories(projectId) })
+  } = useQuery<Story[], Error>({
+    queryKey: ['stories'],
+    staleTime: 100 * 60 * 1000,
+    queryFn: () => getStories(projectId),
+  })
 
   const addStoryMutation = useMutation({
     mutationFn: addStory,

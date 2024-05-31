@@ -9,6 +9,14 @@ let refreshTokens: string[] = []
 
 const router = express.Router()
 
+router.get('/users', async (_: Request, res: Response) => {
+  const users = await User.find()
+
+  if (!users) return res.sendStatus(404)
+
+  res.json(users)
+})
+
 router.post('/login', async (req: Request, res: Response) => {
   const { username, password } = req.body
 

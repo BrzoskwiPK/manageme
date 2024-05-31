@@ -3,7 +3,13 @@ import { LoginRequest, Project, Story, Task } from '../types/types'
 
 const BASE_URL = 'http://localhost:3000'
 
-export const loginUser = (loginData: LoginRequest) => axios.post(`${BASE_URL}/login`, loginData)
+export const loginUser = async (loginData: LoginRequest) =>
+  axios.post(`${BASE_URL}/login`, loginData)
+
+export const getUsers = async () => {
+  const response = await axios.get(`${BASE_URL}/users`)
+  return response.data
+}
 
 export const getProjects = async (): Promise<Project[]> => {
   const response: AxiosResponse<Project[]> = await axios.get(`${BASE_URL}/projects`)
