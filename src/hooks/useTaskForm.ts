@@ -1,5 +1,5 @@
 import { FormEvent, useState } from 'react'
-import { Priority, State, Task, User } from '../types/types'
+import { Priority, State, Task } from '../types/types'
 import { useTasks } from './useTasks'
 
 export const useTaskForm = (storyId: string) => {
@@ -10,7 +10,7 @@ export const useTaskForm = (storyId: string) => {
   const [state, setState] = useState<State>(State.TODO)
   const [startedAt, setStartedAt] = useState<Date>()
   const [finishedAt, setFinishedAt] = useState<Date>()
-  const [responsibleUser, setResponsibleUser] = useState<User | null>()
+  const [responsibleUser, setResponsibleUser] = useState<string>()
 
   const { addTask } = useTasks(storyId)
 
@@ -28,7 +28,7 @@ export const useTaskForm = (storyId: string) => {
       createdAt: new Date(),
       startedAt,
       finishedAt,
-      responsibleUser: responsibleUser?.id,
+      responsibleUser,
     }
 
     addTask(newTask)

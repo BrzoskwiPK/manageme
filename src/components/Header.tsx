@@ -1,9 +1,15 @@
-import { FC } from 'react'
+import { FC, useEffect, useState } from 'react'
 import useAuthUser from 'react-auth-kit/hooks/useAuthUser'
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 
 const Header: FC = () => {
-  const authUser: { username: string } | null = useAuthUser()
+  const location = useLocation()
+  const authKitUser: { username: string } | null = useAuthUser()
+  const [authUser, setAuthUser] = useState<{ username: string } | null>(null)
+
+  useEffect(() => {
+    setAuthUser(authKitUser)
+  }, [location, authKitUser])
 
   return (
     <header className='flex justify-between h-[15vh] w-full items-center bg-background'>

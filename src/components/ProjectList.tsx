@@ -22,7 +22,7 @@ const ProjectList: FC<ProjectsListProps> = ({ openModal }: ProjectsListProps) =>
   }
 
   return (
-    <div className='container mx-auto px-4 py-8 bg-gray-100'>
+    <div className='container mx-auto px-4 py-8 bg-gray-100 max-h-[80vh] overflow-y-scroll'>
       <h1 className='text-4xl font-bold text-center mb-8'>Projects</h1>
       <div className='flex flex-wrap justify-center gap-6'>
         {projects?.length ? (
