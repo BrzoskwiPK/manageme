@@ -26,8 +26,8 @@ export const useTaskForm = (storyId: string) => {
       estimatedTime,
       state,
       createdAt: new Date(),
-      startedAt,
-      finishedAt,
+      startedAt: [State.DOING, State.DONE].includes(state) ? startedAt : undefined,
+      finishedAt: state === State.DONE ? new Date() : undefined,
       responsibleUser,
     }
 

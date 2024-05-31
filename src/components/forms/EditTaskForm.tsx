@@ -126,23 +126,25 @@ const EditTaskForm: FC<EditTaskFormProps> = ({ taskId, closeModal }) => {
           />
         </div>
       </div>
-      <div>
-        <label htmlFor='finishedAt' className='block text-sm font-medium leading-6 text-gray-900'>
-          Finished At
-        </label>
-        <div className='mt-2'>
-          <input
-            id='finishedAt'
-            name='finishedAt'
-            type='datetime-local'
-            disabled={state !== 'DONE'}
-            required={state === 'DONE'}
-            value={finishedAt ? new Date(finishedAt).toISOString().slice(0, 16) : ''}
-            onChange={e => setFinishedAt(new Date(e.target.value))}
-            className='block w-full rounded-md border-0 py-2 px-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6'
-          />
+      {state === State.DONE ? (
+        <div>
+          <label htmlFor='finishedAt' className='block text-sm font-medium leading-6 text-gray-900'>
+            Finished At
+          </label>
+          <div className='mt-2'>
+            <input
+              id='finishedAt'
+              name='finishedAt'
+              type='datetime-local'
+              disabled={state !== 'DONE'}
+              required={state === 'DONE'}
+              value={finishedAt ? new Date(finishedAt).toISOString().slice(0, 16) : ''}
+              onChange={e => setFinishedAt(new Date(e.target.value))}
+              className='block w-full rounded-md border-0 py-2 px-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6'
+            />
+          </div>
         </div>
-      </div>
+      ) : null}
       <div>
         <label
           htmlFor='responsibleUser'

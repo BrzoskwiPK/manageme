@@ -1,4 +1,4 @@
-import { FC, FormEvent, useState } from 'react'
+import { ChangeEvent, FC, FormEvent, useState } from 'react'
 import { useTaskForm } from '../../hooks/useTaskForm'
 import { Priority, State } from '../../types/types'
 import { useUsers } from '../../hooks/useUsers'
@@ -19,7 +19,6 @@ const AddTaskForm: FC<AddTaskFormProps> = ({ storyId, closeModal }) => {
     startedAt,
     setStartedAt,
     finishedAt,
-    setFinishedAt,
     setResponsibleUser,
     handleSubmit,
   } = useTaskForm(storyId)
@@ -42,6 +41,16 @@ const AddTaskForm: FC<AddTaskFormProps> = ({ storyId, closeModal }) => {
 
     handleSubmit(e)
     closeModal()
+  }
+
+  const handleUserChange = (e: ChangeEvent<HTMLSelectElement>) => {
+    if (e.target.value.length > 0 && state === State.TODO) {
+      setState(State.DOING)
+      setResponsibleUser(e.target.value)
+      setStartedAt(new Date())
+    } else {
+      setResponsibleUser(e.target.value)
+    }
   }
 
   return (
@@ -152,22 +161,6 @@ const AddTaskForm: FC<AddTaskFormProps> = ({ storyId, closeModal }) => {
         </div>
       </div>
       <div>
-        <label htmlFor='finishedAt' className='block text-sm font-medium leading-6 text-gray-900'>
-          Finished At
-        </label>
-        <div className='mt-2'>
-          <input
-            id='finishedAt'
-            name='finishedAt'
-            type='datetime-local'
-            disabled={state !== 'DONE'}
-            required={state === 'DONE'}
-            onChange={e => setFinishedAt(new Date(e.target.value))}
-            className='block w-full rounded-md border-0 py-2 px-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6'
-          />
-        </div>
-      </div>
-      <div>
         <label
           htmlFor='responsibleUser'
           className='block text-sm font-medium leading-6 text-gray-900'>
@@ -178,8 +171,11 @@ const AddTaskForm: FC<AddTaskFormProps> = ({ storyId, closeModal }) => {
             id='responsibleUser'
             name='responsibleUser'
             required={state !== 'TODO'}
-            onChange={e => setResponsibleUser(e.target.value)}
+            onChange={e => handleUserChange(e)}
             className='block w-full rounded-md border-0 py-2 px-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6'>
+            <option key='emptyKey' value={''}>
+              Select user...
+            </option>
             {filteredUsers?.map(user => (
               <option key={user.username} value={user.id}>
                 {`${user.name} ${user.surname}`}
