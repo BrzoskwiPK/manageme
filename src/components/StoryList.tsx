@@ -19,9 +19,15 @@ const StoryList: FC<StoryListProps> = ({ projectId, openModal }: StoryListProps)
   if (error) return <div>Error loading stories</div>
 
   const groupedStories: Record<State, Story[] | undefined> = {
-    [State.TODO]: stories?.filter(story => story.state === State.TODO),
-    [State.DOING]: stories?.filter(story => story.state === State.DOING),
-    [State.DONE]: stories?.filter(story => story.state === State.DONE),
+    [State.TODO]: Array.isArray(stories)
+      ? stories?.filter(story => story.state === State.TODO)
+      : [],
+    [State.DOING]: Array.isArray(stories)
+      ? stories?.filter(story => story.state === State.DOING)
+      : [],
+    [State.DONE]: Array.isArray(stories)
+      ? stories?.filter(story => story.state === State.DONE)
+      : [],
   }
 
   const showTasks = (storyId: string) => {

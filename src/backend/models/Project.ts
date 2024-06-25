@@ -14,6 +14,6 @@ const projectSchema = new Schema<IProject>({
   current: { type: Boolean, required: true, default: false },
 })
 
-const Project = model<IProject>('Project', projectSchema)
+const ProjectModel = model<IProject>('Project', projectSchema)
 
-export default Project
+export default ProjectModel

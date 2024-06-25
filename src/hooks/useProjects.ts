@@ -50,7 +50,7 @@ export const useProjects = () => {
   })
 
   const getCurrentProject = () => {
-    return projects?.find(project => project.current === true)
+    return Array.isArray(projects) ? projects.find(project => project.current) : null
   }
 
   return {

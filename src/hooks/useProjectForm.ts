@@ -26,7 +26,7 @@ export const useProjectForm = () => {
       current: false,
     }
 
-    if (projects && projects.some(p => p.name === name)) {
+    if (Array.isArray(project) && projects?.some(p => p.name === name)) {
       setFormErrors('Project with this name already exists!')
       return
     }

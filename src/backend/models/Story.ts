@@ -23,6 +23,6 @@ const storySchema = new mongoose.Schema<IStory>({
   owner: { type: String, required: true },
 })
 
-const Story = model<IStory>('Story', storySchema)
+const StoryModel = model<IStory>('Story', storySchema)
 
-export default Story
+export default StoryModel

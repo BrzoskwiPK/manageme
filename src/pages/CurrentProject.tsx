@@ -29,7 +29,7 @@ const CurrentProject: FC = () => {
   if (!project) {
     return (
       <div className='w-full h-full flex items-center justify-center'>
-        <p className='text-lg text-gray-500'>No current project found</p>
+        <p className='text-lg text-gray-500 font-semibold'>No current project found</p>
       </div>
     )
   }

@@ -69,3 +69,15 @@ export type LoginRequest = {
   username: string
   password: string
 }
+
+export type ISOString = string
+
+export type Notification = {
+  id: string
+  title: string
+  message: string
+  date: ISOString
+  priority: Priority
+  read: boolean
+  owner: string
+}
