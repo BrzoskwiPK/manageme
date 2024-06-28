@@ -1,4 +1,5 @@
 import StoryModel from '../models/Story'
+import TaskModel from '../models/Task'
 import { Story } from '../types'
 
 export class StoryService {
@@ -10,7 +11,7 @@ export class StoryService {
   async addStory(story: Story) {
     const newStory = new StoryModel(story)
 
-    await newStory.save()
+    return await newStory.save()
   }
 
   async deleteStory(id: string) {
@@ -18,8 +19,23 @@ export class StoryService {
     return story
   }
 
+  async deleteStories(projectId: string) {
+    const storyModels = await StoryModel.find({ projectId: projectId })
+    const storyIds = storyModels.map(story => story.id)
+
+    const stories = await StoryModel.deleteMany({ projectId })
+
+    await TaskModel.deleteMany({ storyId: { $in: storyIds } })
+
+    return stories
+  }
+
   async updateStory(id: string, story: Partial<Story>) {
-    console.log(story)
-    await StoryModel.updateOne({ id }, { story }, { new: true, runValidators: true })
+    const { title, description, priority, state } = story
+    return await StoryModel.updateOne(
+      { id },
+      { title, description, priority, state },
+      { new: true, runValidators: true }
+    )
   }
 }

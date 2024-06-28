@@ -8,7 +8,7 @@ class TaskController {
     try {
       const tasks = await this.taskService.fetchTasks(req.params.id)
 
-      res.send(tasks)
+      res.status(200).send(tasks)
     } catch (error) {
       console.error('Error fetching tasks: ', error)
       res.status(500).send({ message: 'Failed to fetch tasks' })
@@ -17,8 +17,9 @@ class TaskController {
 
   addTask = async (req: Request, res: Response) => {
     try {
-      await this.taskService.addTask(req.body)
-      res.status(201).send({ message: 'Task added successfully' })
+      const task = await this.taskService.addTask(req.body)
+
+      res.status(201).send(task)
     } catch (error) {
       console.error('Error adding task: ', error)
       res.status(500).send({ message: 'Failed to add task' })
@@ -27,8 +28,8 @@ class TaskController {
 
   updateTask = async (req: Request, res: Response) => {
     try {
-      await this.taskService.updateTask(req.params.id, req.body)
-      res.status(200).send({ message: 'Task updated' })
+      const task = await this.taskService.updateTask(req.params.id, req.body)
+      res.status(200).send(task)
     } catch (error) {
       console.error('Error updating task: ', error)
       res.status(500).send({ message: 'Failed to update task' })
@@ -40,7 +41,7 @@ class TaskController {
       const task = await this.taskService.deleteTask(req.params.id)
 
       if (task.acknowledged) {
-        res.status(204).send({ message: 'Task deleted' })
+        res.status(204).send(task)
       } else {
         res.status(404).send({ message: 'Task not found' })
       }

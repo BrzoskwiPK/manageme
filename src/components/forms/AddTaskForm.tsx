@@ -135,6 +135,7 @@ const AddTaskForm: FC<AddTaskFormProps> = ({ storyId, closeModal }) => {
           <select
             id='state'
             name='state'
+            value={state}
             onChange={e => setState(e.target.value as State)}
             required
             className='block w-full rounded-md border-0 py-2 px-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6'>
@@ -154,8 +155,7 @@ const AddTaskForm: FC<AddTaskFormProps> = ({ storyId, closeModal }) => {
             name='startedAt'
             type='datetime-local'
             onChange={e => setStartedAt(new Date(e.target.value))}
-            disabled={state === 'TODO'}
-            required={state === 'DOING'}
+            required={state === State.DOING}
             className='block w-full rounded-md border-0 py-2 px-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6'
           />
         </div>
@@ -177,7 +177,7 @@ const AddTaskForm: FC<AddTaskFormProps> = ({ storyId, closeModal }) => {
               Select user...
             </option>
             {filteredUsers?.map(user => (
-              <option key={user.username} value={user.id}>
+              <option key={user.username} value={user.username}>
                 {`${user.name} ${user.surname}`}
               </option>
             ))}

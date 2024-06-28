@@ -1,8 +1,10 @@
 import { ProjectService } from '../services/ProjectService'
 import { Request, Response } from 'express'
+import { StoryService } from '../services/StoryService'
 
 class ProjectController {
   projectsService: ProjectService = new ProjectService()
+  storyService: StoryService = new StoryService()
 
   fetchProjects = async (_: Request, res: Response) => {
     try {
@@ -47,7 +49,8 @@ class ProjectController {
       const project = await this.projectsService.deleteProject(req.params.projectId)
 
       if (project.acknowledged) {
-        res.status(204).send({ message: 'Project deleted' })
+        await this.storyService.deleteStories(req.params.projectId)
+        res.status(204).send(project)
       } else {
         res.status(404).send({ message: 'Project not found' })
       }
@@ -62,8 +65,12 @@ class ProjectController {
     const { name, description, current } = req.body
 
     try {
-      await this.projectsService.updateProject(projectId, { name, description, current })
-      res.status(200).send({ message: 'Project updated' })
+      const project = await this.projectsService.updateProject(projectId, {
+        name,
+        description,
+        current,
+      })
+      res.status(200).send(project)
     } catch (error) {
       console.error('Error updating project: ', error)
       res.status(500).send({ message: 'Failed to update project' })
@@ -74,8 +81,8 @@ class ProjectController {
     const projectId = req.params.projectId
 
     try {
-      await this.projectsService.setCurrentProject(projectId)
-      res.status(200).send({ message: 'Project set as current' })
+      const project = await this.projectsService.setCurrentProject(projectId)
+      res.status(200).send(project)
     } catch (error) {
       console.error('Error setting as current project: ', error)
       res.status(500).send({ message: 'Failed to set as current project' })

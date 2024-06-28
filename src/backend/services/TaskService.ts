@@ -10,11 +10,17 @@ export class TaskService {
   async addTask(task: Task) {
     const newTask = new TaskModel(task)
 
-    newTask.save()
+    return await newTask.save()
   }
 
   async updateTask(id: string, task: Partial<Task>) {
-    await TaskModel.updateOne({ id }, { task }, { new: true, runValidators: true })
+    const { name, description, priority, estimatedTime, state, startedAt, responsibleUser } = task
+
+    return await TaskModel.updateOne(
+      { id },
+      { name, description, priority, estimatedTime, state, startedAt, responsibleUser },
+      { new: true, runValidators: true }
+    )
   }
 
   async deleteTask(id: string) {

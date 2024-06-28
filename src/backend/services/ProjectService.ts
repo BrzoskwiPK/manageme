@@ -15,7 +15,7 @@ export class ProjectService {
   }
 
   async addProject({ id, name, description, current }: Project) {
-    await ProjectModel.create({ id, name, description, current })
+    return await ProjectModel.create({ id, name, description, current })
   }
 
   async deleteProject(id: string) {
@@ -24,11 +24,11 @@ export class ProjectService {
   }
 
   async updateProject(id: string, { name, description, current }: Partial<Project>) {
-    await ProjectModel.updateOne({ id }, { name, description, current }, { new: true })
+    return await ProjectModel.updateOne({ id }, { name, description, current }, { new: true })
   }
 
   async setCurrentProject(id: string) {
     await ProjectModel.updateMany({}, { current: false })
-    await ProjectModel.updateOne({ id }, { current: true })
+    return await ProjectModel.updateOne({ id }, { current: true })
   }
 }

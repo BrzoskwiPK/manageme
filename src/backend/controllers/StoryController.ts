@@ -16,8 +16,9 @@ class StoryController {
 
   addStory = async (req: Request, res: Response) => {
     try {
-      await this.storyService.addStory(req.body)
-      res.status(201).send({ message: 'Story added' })
+      const story = await this.storyService.addStory(req.body)
+
+      res.status(201).send(story)
     } catch (error) {
       console.error('Error adding story: ', error)
       res.status(500).send({ message: 'Failed to add story' })
@@ -29,7 +30,7 @@ class StoryController {
       const story = await this.storyService.deleteStory(req.params.id)
 
       if (story.acknowledged) {
-        res.status(204).send({ message: 'Story deleted' })
+        res.status(204).send(story)
       } else {
         res.status(404).send({ message: 'Story not found' })
       }
@@ -41,8 +42,8 @@ class StoryController {
 
   updateStory = async (req: Request, res: Response) => {
     try {
-      await this.storyService.updateStory(req.params.id, req.body)
-      res.status(200).send({ message: 'Story updated' })
+      const story = await this.storyService.updateStory(req.params.id, req.body)
+      res.status(200).send(story)
     } catch (error) {
       console.error('Error updating story: ', error)
       res.status(500).send({ message: 'Failed to update story' })

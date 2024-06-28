@@ -1,6 +1,7 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { addTask, deleteTask, getTasks, updateTask } from '../services/api'
 import { Task } from '../types/types'
+import { notificationService } from '../services/notifications'
 
 export const useTasks = (storyId: string) => {
   const queryClient = useQueryClient()
@@ -17,8 +18,19 @@ export const useTasks = (storyId: string) => {
 
   const addTaskMutation = useMutation({
     mutationFn: addTask,
-    onSuccess: () => {
+    onSuccess: task => {
       queryClient.invalidateQueries({ queryKey: ['tasks'] })
+
+      const newNotification = {
+        title: 'New Task Added',
+        message: `A new task "${task.name}" has been added.`,
+        date: new Date().toISOString(),
+        priority: task.priority,
+        read: false,
+        owner: task.responsibleUser as string,
+      }
+
+      notificationService.send(newNotification)
     },
   })
 

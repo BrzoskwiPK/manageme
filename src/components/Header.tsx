@@ -1,6 +1,8 @@
 import { FC, useEffect, useState } from 'react'
 import useAuthUser from 'react-auth-kit/hooks/useAuthUser'
 import { Link, useLocation } from 'react-router-dom'
+import NotificationCounter from './NotificationCounter'
+import NotificationDialog from './NotificationDialog'
 
 const Header: FC = () => {
   const location = useLocation()
@@ -21,7 +23,13 @@ const Header: FC = () => {
           </figure>
         </div>
       </Link>
-      <p className='mr-8 text-xl font-semibold text-content'>{authUser?.username}</p>
+      <div className='flex items-center mr-8'>
+        <Link to='/notifications'>
+          <NotificationCounter />
+        </Link>
+        <p className='ml-4 text-xl font-semibold text-content'>{authUser?.username}</p>
+        <NotificationDialog />
+      </div>
     </header>
   )
 }

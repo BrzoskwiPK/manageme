@@ -120,8 +120,8 @@ const EditTaskForm: FC<EditTaskFormProps> = ({ taskId, closeModal }) => {
             type='datetime-local'
             value={startedAt ? new Date(startedAt).toISOString().slice(0, 16) : ''}
             onChange={e => setStartedAt(new Date(e.target.value))}
-            disabled={state === 'TODO'}
-            required={state === 'DOING'}
+            disabled={state === State.TODO}
+            required={state === State.DOING}
             className='block w-full rounded-md border-0 py-2 px-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6'
           />
         </div>
@@ -136,8 +136,8 @@ const EditTaskForm: FC<EditTaskFormProps> = ({ taskId, closeModal }) => {
               id='finishedAt'
               name='finishedAt'
               type='datetime-local'
-              disabled={state !== 'DONE'}
-              required={state === 'DONE'}
+              disabled={state !== State.DONE}
+              required={state === State.DONE}
               value={finishedAt ? new Date(finishedAt).toISOString().slice(0, 16) : ''}
               onChange={e => setFinishedAt(new Date(e.target.value))}
               className='block w-full rounded-md border-0 py-2 px-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6'
@@ -159,6 +159,9 @@ const EditTaskForm: FC<EditTaskFormProps> = ({ taskId, closeModal }) => {
             value={responsibleUser}
             onChange={e => setResponsibleUser(e.target.value)}
             className='block w-full rounded-md border-0 py-2 px-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6'>
+            <option key='emptyKey' value={''}>
+              Select user...
+            </option>
             {filteredUsers?.map(user => (
               <option key={user.username} value={user.id}>
                 {`${user.name} ${user.surname}`}

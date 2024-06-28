@@ -1,5 +1,6 @@
 import { Route, createBrowserRouter, createRoutesFromElements } from 'react-router-dom'
 import { Suspense, lazy } from 'react'
+import NotificationList from './components/NotificationList'
 
 const Layout = lazy(() => import('./components/Layout'))
 const Loading = lazy(() => import('./components/Loading'))
@@ -64,6 +65,16 @@ const AppRouter = createBrowserRouter(
           <Suspense fallback={<Loading />}>
             <ProtectedRoute>
               <TaskList />
+            </ProtectedRoute>
+          </Suspense>
+        }
+      />
+      <Route
+        path='/notifications'
+        element={
+          <Suspense fallback={<Loading />}>
+            <ProtectedRoute>
+              <NotificationList />
             </ProtectedRoute>
           </Suspense>
         }
